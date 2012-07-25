@@ -1,0 +1,26 @@
+# Konfiguracja LANa
+LAN_IF="eth0"
+LAN_NET="10.10.10.0/24"
+
+# Konfiguracja WANa
+WAN_IF="eth1"
+
+# Konfiguracja VPN
+VPN_IF="tun+"
+VPN_NET="10.22.22.0/24"
+
+# Nazwa domeny lan
+DOMAIN_NAME="biuro2.lanox.lan"
+
+
+# Sciezki do plikow konfiguracyjnych
+DHCPHOSTS_FILE="/etc/dhcp/dhcpd.conf.hosts"
+
+ZONE_FILE="/etc/bind/pri/biuro2.lanox.lan.zone"
+RZONE_FILE="/etc/bind/pri/10.10.10.in-addr.arpa.zone"
+
+SQUIDACCESS_FILE="/etc/squid/fullaccess.conf"
+
+# Dane do Backupow MySQL
+MYSQL_USER="backup"
+MYSQL_PASS="uFHdSdetNTYujcvQ"

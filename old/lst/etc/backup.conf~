@@ -1,0 +1,4 @@
+# Konfiguracja backupow
+# Skladnia
+# nazwa		typ (mysql/dir/etc.)	zrodlo		cel			ilosc trzymanych kopii
+git		dir			/var/git	/home/backup/git/	30
