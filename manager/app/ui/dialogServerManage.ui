@@ -356,6 +356,13 @@
           </widget>
          </item>
          <item>
+          <widget class="QPushButton" name="bntLoadLog">
+           <property name="text">
+            <string>Pokaż</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer_10">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
@@ -376,7 +383,17 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="sbLogLines"/>
+          <widget class="QSpinBox" name="sbLogLines">
+           <property name="minimum">
+            <number>1</number>
+           </property>
+           <property name="maximum">
+            <number>200</number>
+           </property>
+           <property name="value">
+            <number>20</number>
+           </property>
+          </widget>
          </item>
          <item>
           <spacer name="horizontalSpacer_9">

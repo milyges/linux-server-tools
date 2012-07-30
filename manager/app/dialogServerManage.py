@@ -170,6 +170,23 @@ class DialogServerManage(QtGui.QDialog):
             self._server.execute(str(self._ui.leCommand.text()), self._exec_command_callback)
             self._ui.leCommand.clear()
             
+    def _log_show(self, code, stdout, stderr):
+        self._ui.pteLogContent.clear()
+        if code != 0:
+            self._ui.pteLogContent.setPlainText(stderr)
+            return
+        
+        self._ui.pteLogContent.setPlainText(stdout)
+        
+        for i in range(self._ui.cbLogFile.count()):
+            if self._ui.cbLogFile.itemText(i) == self._ui.cbLogFile.currentText():
+                return
+            
+        self._ui.cbLogFile.addItem(self._ui.cbLogFile.currentText())
+        
+    def _log_load(self):        
+        self._server.execute("tail -n %d %s" % (self._ui.sbLogLines.value(), self._ui.cbLogFile.currentText()), self._log_show)
+                
     def __init__(self, server, parent = None):
         super(DialogServerManage, self).__init__(parent)
 
@@ -180,7 +197,10 @@ class DialogServerManage(QtGui.QDialog):
         self._ui.lTitle.setText("Zarządzanie serwerem %s" % (server._item.text(1)))
         self.setWindowTitle("Zarządzanie serwerem %s" % (server._item.text(1)))
         
+        self._ui.pteLogContent.setVerticalScrollBarPolicy( QtCore.Qt.ScrollBarAlwaysOn );
+        
         self.connect(self._ui.bntExec, QtCore.SIGNAL("clicked()"), self._exec_command)
+        self.connect(self._ui.bntLoadLog, QtCore.SIGNAL('clicked()'), self._log_load)
         
         self._ui.lUname.setText("Loading...")
         server.execute("uname -a", self._update_uname)
@@ -193,4 +213,9 @@ class DialogServerManage(QtGui.QDialog):
         self._update_timer.setSingleShot(False)
         self._update_timer.start()
         
+        self._ui.cbLogFile.addItem("/var/log/auth.log")
+        self._ui.cbLogFile.addItem("/var/log/debug")
+        self._ui.cbLogFile.addItem("/var/log/dmesg")
+        self._ui.cbLogFile.addItem("/var/log/messages")
+        self._ui.cbLogFile.addItem("/var/log/syslog")
         

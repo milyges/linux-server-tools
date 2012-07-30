@@ -23,6 +23,8 @@ class MainWindow(QtGui.QMainWindow):
         self._ui = Ui_MainWindow()
         self._ui.setupUi(self)
 
+        self.setWindowTitle("Linux Server Tools Manager")
+        
         self.connect(self._ui.aServerAdd, QtCore.SIGNAL("triggered()"), self._action_add_server)
         self.connect(self._ui.aServerRemove, QtCore.SIGNAL("triggered()"), self._action_remove_server)
         self.connect(self._ui.aHelpAbout, QtCore.SIGNAL("triggered()"), self._show_about)
