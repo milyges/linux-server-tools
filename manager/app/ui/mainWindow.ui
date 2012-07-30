@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTreeWidget" name="twServers">
+      <property name="rootIsDecorated">
+       <bool>false</bool>
+      </property>
+      <column>
+       <property name="text">
+        <string>Status</string>
+       </property>
+       <property name="textAlignment">
+        <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Nazwa</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Opis</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Adres</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Czas pracy</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Obciążenie</string>
+       </property>
+      </column>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu_Serwer">
+    <property name="title">
+     <string>&amp;Serwer</string>
+    </property>
+    <addaction name="aServerAdd"/>
+    <addaction name="aServerEdit"/>
+    <addaction name="aServerManage"/>
+    <addaction name="aServerRemove"/>
+    <addaction name="separator"/>
+    <addaction name="aServerExit"/>
+   </widget>
+   <addaction name="menu_Serwer"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="aServerAdd">
+   <property name="text">
+    <string>Dodaj</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="aServerRemove">
+   <property name="text">
+    <string>Usuń</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="aServerExit">
+   <property name="text">
+    <string>Wyjście</string>
+   </property>
+   <property name="shortcut">
+    <string>Alt+X</string>
+   </property>
+  </action>
+  <action name="aServerEdit">
+   <property name="text">
+    <string>Edytuj</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="aServerManage">
+   <property name="text">
+    <string>Zarządzaj</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>aServerExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
