@@ -6,6 +6,8 @@ from PyQt4 import QtCore,QtGui
 from app.ui.mainWindow import Ui_MainWindow
 from app.dialogAddServer import DialogAddServer
 from app.dialogServerManage import DialogServerManage
+from app.dialogAbout import DialogAbout
+
 from app.server import Server
 
 class MainWindow(QtGui.QMainWindow):
@@ -23,7 +25,7 @@ class MainWindow(QtGui.QMainWindow):
 
         self.connect(self._ui.aServerAdd, QtCore.SIGNAL("triggered()"), self._action_add_server)
         self.connect(self._ui.aServerRemove, QtCore.SIGNAL("triggered()"), self._action_remove_server)
-        
+        self.connect(self._ui.aHelpAbout, QtCore.SIGNAL("triggered()"), self._show_about)
         self.connect(self._ui.twServers, QtCore.SIGNAL("itemDoubleClicked(QTreeWidgetItem *,int)"), self._action_manage_server)
                      
         self._updateTimer = QtCore.QTimer(self)
@@ -59,6 +61,10 @@ class MainWindow(QtGui.QMainWindow):
         for s in self._servers:
             s.start()
        
+    def _show_about(self):
+        dialog = DialogAbout()
+        dialog.exec_()
+        
     def _add_server(self, name, desc, addr, port, user, keys):
         server = Server(addr, port, user, keys, QtGui.QTreeWidgetItem(self._ui.twServers))        
         

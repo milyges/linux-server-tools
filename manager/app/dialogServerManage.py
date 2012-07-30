@@ -32,10 +32,14 @@ class DialogServerManage(QtGui.QDialog):
                 item.setText(0, tmp[0])
                 item.setText(1, tmp[1])
                 item.setText(2, tmp[2])
-                item.setText(3, tmp[3])
-                item.setText(4, tmp[4])
+                item.setText(3, tmp[3])                
                 item.setText(5, tmp[5])
-            
+                
+                pb = QtGui.QProgressBar()
+                pb.setMaximum(100)
+                pb.setValue(int(tmp[4][:-1]))       
+                self._ui.twFs.setItemWidget(item, 4, pb)
+                
                 inuse = int(tmp[4][:-1])
                 
                 if inuse > 95:
@@ -74,7 +78,8 @@ class DialogServerManage(QtGui.QDialog):
             if blocks > 1024:
                 unit = 'G'
                 blocks = blocks / 1024
-                    
+             
+            
             item.setText(3, "%d%s" % (round(blocks), unit))
             i = i + 3 
             
