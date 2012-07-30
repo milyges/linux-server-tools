@@ -153,7 +153,18 @@ class DialogServerManage(QtGui.QDialog):
         self._server.execute("cat /proc/mdstat", self._update_raid)
         self._server.execute("/sbin/ifconfig -a", self._update_ifaces)
         self._server.execute("cat /proc/meminfo", self._update_mem_info)
+    
+    def _exec_command_callback(self, code, stdout, stderr):
         
+        self._ui.pteCommandResult.setPlainText(self._ui.pteCommandResult.toPlainText() + stderr + stdout)
+        
+    def _exec_command(self):
+        if self._ui.leCommand.text():
+            self._ui.pteCommandResult.clear()
+            self._ui.pteCommandResult.setPlainText("$ %s\n" % (self._ui.leCommand.text()))
+            self._server.execute(str(self._ui.leCommand.text()), self._exec_command_callback)
+            self._ui.leCommand.clear()
+            
     def __init__(self, server, parent = None):
         super(DialogServerManage, self).__init__(parent)
 
@@ -163,6 +174,8 @@ class DialogServerManage(QtGui.QDialog):
         self._server = server
         self._ui.lTitle.setText("Zarządzanie serwerem %s" % (server._item.text(1)))
         self.setWindowTitle("Zarządzanie serwerem %s" % (server._item.text(1)))
+        
+        self.connect(self._ui.bntExec, QtCore.SIGNAL("clicked()"), self._exec_command)
         
         self._ui.lUname.setText("Loading...")
         server.execute("uname -a", self._update_uname)

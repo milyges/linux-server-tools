@@ -349,20 +349,10 @@
           </widget>
          </item>
          <item>
-          <widget class="QComboBox" name="comboBox">
+          <widget class="QComboBox" name="cbLogFile">
            <property name="editable">
             <bool>true</bool>
            </property>
-           <item>
-            <property name="text">
-             <string>/var/log/messages</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>/var/log/auth.log</string>
-            </property>
-           </item>
           </widget>
          </item>
          <item>
@@ -386,7 +376,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QSpinBox" name="spinBox"/>
+          <widget class="QSpinBox" name="sbLogLines"/>
          </item>
          <item>
           <spacer name="horizontalSpacer_9">
@@ -402,7 +392,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QCheckBox" name="checkBox">
+          <widget class="QCheckBox" name="cbLogRefresh">
            <property name="text">
             <string>Odświeżaj</string>
            </property>
@@ -411,7 +401,7 @@
         </layout>
        </item>
        <item>
-        <widget class="QPlainTextEdit" name="plainTextEdit">
+        <widget class="QPlainTextEdit" name="pteLogContent">
          <property name="readOnly">
           <bool>true</bool>
          </property>
@@ -425,7 +415,11 @@
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QPlainTextEdit" name="plainTextEdit_2"/>
+        <widget class="QPlainTextEdit" name="pteCommandResult">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
@@ -437,10 +431,10 @@
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="lineEdit"/>
+          <widget class="QLineEdit" name="leCommand"/>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="bntExec">
            <property name="text">
             <string>Wykonaj</string>
            </property>
@@ -455,17 +449,17 @@
   </layout>
  </widget>
  <tabstops>
-  <tabstop>lineEdit</tabstop>
+  <tabstop>leCommand</tabstop>
   <tabstop>twFs</tabstop>
   <tabstop>twRaid</tabstop>
   <tabstop>twIfaces</tabstop>
-  <tabstop>comboBox</tabstop>
-  <tabstop>spinBox</tabstop>
-  <tabstop>checkBox</tabstop>
-  <tabstop>plainTextEdit</tabstop>
-  <tabstop>plainTextEdit_2</tabstop>
+  <tabstop>cbLogFile</tabstop>
+  <tabstop>sbLogLines</tabstop>
+  <tabstop>cbLogRefresh</tabstop>
+  <tabstop>pteLogContent</tabstop>
+  <tabstop>pteCommandResult</tabstop>
   <tabstop>tabWidget</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>bntExec</tabstop>
  </tabstops>
  <resources/>
  <connections/>

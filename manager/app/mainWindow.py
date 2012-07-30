@@ -80,9 +80,12 @@ class MainWindow(QtGui.QMainWindow):
     def _save_server(self):
         dialog = self.sender()
         
-        # TODO: Sprawdz czy edycja czy nowy oraz czy juz nie istnieje
-        
-        self._add_server(dialog._ui.leName.text(), dialog._ui.leDesc.text(), dialog._ui.leAddr.text(), dialog._ui.sbPort.value(), str(dialog._ui.leUser.text()), (os.path.expanduser(str(dialog._ui.leKey1.text())), os.path.expanduser(str(dialog._ui.leKey2.text()))))
+        if not dialog._ui.leName.text() or not dialog._ui.leDesc.text() or not dialog._ui.leAddr.text() or not dialog._ui.leUser.text() or not dialog._ui.leKey1.text() or not dialog._ui.leKey2.text(): 
+            QtGui.QMessageBox.critical(self, "Błąd", "Wszystkie pola są wymagane!")
+        else:
+            # TODO: Sprawdz czy edycja czy nowy oraz czy juz nie istnieje
+            
+            self._add_server(dialog._ui.leName.text(), dialog._ui.leDesc.text(), dialog._ui.leAddr.text(), dialog._ui.sbPort.value(), str(dialog._ui.leUser.text()), (os.path.expanduser(str(dialog._ui.leKey1.text())), os.path.expanduser(str(dialog._ui.leKey2.text()))))
         
     def _action_add_server(self):
         dialog = DialogAddServer(self)
