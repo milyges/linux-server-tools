@@ -139,10 +139,11 @@ class Server(QtCore.QObject):
         if sc.callback:
             sc.callback(sc.exitcode, sc.stdout, sc.stderr)
     
-    def __init__(self, addr, port, user, keys, item, parent = None):
+    def __init__(self, addr, port, user, keys, lstdir, item, parent = None):
         QtCore.QObject.__init__(self, parent)
 
         self._addr = addr
+        self._lstdir = lstdir
         self._status = STATUS_OFFLINE        
         self._thread = ServerThread(addr, port, user, keys, self)
         self.connect(self._thread, QtCore.SIGNAL("updateStatus(int)"), self._update_status_slot)

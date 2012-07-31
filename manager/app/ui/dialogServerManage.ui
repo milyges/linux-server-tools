@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>678</width>
-    <height>637</height>
+    <width>707</width>
+    <height>612</height>
    </rect>
   </property>
   <property name="font">
@@ -374,7 +374,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tabLogs">
       <attribute name="title">
        <string>Logi</string>
       </attribute>
@@ -466,32 +466,71 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
+     <widget class="QWidget" name="tabLST">
       <attribute name="title">
-       <string>Moduły</string>
+       <string>LST: Moduły</string>
       </attribute>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <item>
-        <widget class="QListWidget" name="lwModules"/>
+        <layout class="QHBoxLayout" name="horizontalLayout_10">
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Moduł:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="cbModules"/>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_12">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QWidget" name="widgetLST" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_6">
+          <item>
+           <layout class="QVBoxLayout" name="vlLST"/>
+          </item>
+         </layout>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_9">
          <item>
-          <widget class="QPushButton" name="bntModulesSave">
+          <widget class="QPushButton" name="bntSave">
            <property name="text">
             <string>Zapisz</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="bntModulesCancel">
+          <widget class="QPushButton" name="bntCancel">
            <property name="text">
             <string>Anuluj</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="bntModulesApply">
+          <widget class="QPushButton" name="bntApply">
            <property name="text">
             <string>Zastosuj</string>
            </property>
@@ -504,7 +543,7 @@
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>409</width>
              <height>20</height>
             </size>
            </property>

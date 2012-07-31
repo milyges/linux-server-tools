@@ -2,6 +2,12 @@
 
 from PyQt4 import QtCore,QtGui
 from app.ui.dialogServerManage import Ui_DialogServerManage
+from app import config
+
+from app.widgetLSTModules import WidgetLSTModules
+from app.widgetLSTZones import WidgetLSTZones
+from app.widgetLSTHosts import WidgetLSTHosts
+
 import re
 import subprocess
 
@@ -207,13 +213,26 @@ class DialogServerManage(QtGui.QDialog):
         except:
             QtGui.QMessageBox().critical(self, "Błąd", "Nie można uruchomić polecenia %s" % (cmd))
             
-    
-    def _load_modules_finished(self, code, stdout, stderr):
-        pass
+    def _module_changed(self, index):
+        
+        if index >= len(self._lstWidgets):
+            return
+        
+        oldwidget = self._ui.vlLST.layout().takeAt(0)
+        if oldwidget:
+            oldwidget.widget().setParent(None)
             
-    def _load_modules(self):
-        pass
+        self._ui.vlLST.addWidget(self._lstWidgets[index])
+        self._lstWidgets[index].selected()
+        
+    def _module_apply(self):
+        QtCore.qDebug("TODO: Reload LST")
+        
+    def _module_cancel(self):
+        self._lstWidgets[self._ui.cbModules.currentIndex()].cancel()
     
+    def _module_save(self):
+        self._lstWidgets[self._ui.cbModules.currentIndex()].save()
     
     def __init__(self, server, parent = None):
         super(DialogServerManage, self).__init__(parent)
@@ -232,6 +251,10 @@ class DialogServerManage(QtGui.QDialog):
         self.connect(self._ui.bntLoadLog, QtCore.SIGNAL('clicked()'), self._log_load)
         self.connect(self._ui.bntTerminalOpen, QtCore.SIGNAL('clicked()'), self._open_terminal)
         self.connect(self._ui.bntBrowserOpen, QtCore.SIGNAL('clicked()'), self._open_browser)
+        self.connect(self._ui.cbModules, QtCore.SIGNAL("currentIndexChanged(int)"), self._module_changed)
+        self.connect(self._ui.bntApply, QtCore.SIGNAL('clicked()'), self._module_apply)
+        self.connect(self._ui.bntCancel, QtCore.SIGNAL('clicked()'), self._module_cancel)
+        self.connect(self._ui.bntSave, QtCore.SIGNAL('clicked()'), self._module_save)
         
         self._ui.lUname.setText("Loading...")
         server.execute("uname -a", self._update_uname)
@@ -249,5 +272,19 @@ class DialogServerManage(QtGui.QDialog):
         self._ui.cbLogFile.addItem("/var/log/dmesg")
         self._ui.cbLogFile.addItem("/var/log/messages")
         self._ui.cbLogFile.addItem("/var/log/syslog")
+        
+        self._lstWidgets = [ ]
+        
+        if self._server._lstdir:
+            self._lstWidgets.append(WidgetLSTModules(self._server))
+            self._ui.cbModules.addItem("Konfiguracja")
+        
+            self._lstWidgets.append(WidgetLSTZones(self._server))
+            self._ui.cbModules.addItem("Strefy")
+        
+            self._lstWidgets.append(WidgetLSTHosts(self._server))
+            self._ui.cbModules.addItem("Hosty")
+        
+        
         
         

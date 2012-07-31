@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>widgetLSTZones</class>
+ <widget class="QWidget" name="widgetLSTZones">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>698</width>
+    <height>546</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTreeWidget" name="twZones">
+     <property name="rootIsDecorated">
+      <bool>false</bool>
+     </property>
+     <property name="expandsOnDoubleClick">
+      <bool>false</bool>
+     </property>
+     <column>
+      <property name="text">
+       <string>Nazwa</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Interfejs</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Adres</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Komentarz</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -54,7 +54,7 @@ class MainWindow(QtGui.QMainWindow):
         for server in self._settings.childGroups():
             self._settings.beginGroup(server)
             
-            s = Server(self._settings.value("addr").toString(), self._settings.value("port").toInt()[0], str(self._settings.value("user").toString()), (str(self._settings.value("key1").toString()), str(self._settings.value("key2").toString())), QtGui.QTreeWidgetItem(self._ui.twServers))
+            s = Server(self._settings.value("addr").toString(), self._settings.value("port").toInt()[0], str(self._settings.value("user").toString()), (str(self._settings.value("key1").toString()), str(self._settings.value("key2").toString())), str(self._settings.value("lstdir").toString()), QtGui.QTreeWidgetItem(self._ui.twServers))
             s.set_info(server, self._settings.value("desc").toString())
             self._servers.append(s)
             
@@ -82,8 +82,8 @@ class MainWindow(QtGui.QMainWindow):
         dialog = DialogAbout()
         dialog.exec_()
         
-    def _add_server(self, name, desc, addr, port, user, keys):
-        server = Server(addr, port, user, keys, QtGui.QTreeWidgetItem(self._ui.twServers))        
+    def _add_server(self, name, desc, addr, port, user, keys, lstdir):
+        server = Server(addr, port, user, keys, lstdir, QtGui.QTreeWidgetItem(self._ui.twServers))        
         
         self._settings.beginGroup("servers/%s" % (name))
         
@@ -93,7 +93,7 @@ class MainWindow(QtGui.QMainWindow):
         self._settings.setValue("user", user)
         self._settings.setValue("key1", keys[0])
         self._settings.setValue("key2", keys[1])
-        
+        self._settings.setValue("lstdir", lstdir)
         self._settings.endGroup()        
         
         self._servers.append(server)
@@ -108,7 +108,7 @@ class MainWindow(QtGui.QMainWindow):
         else:
             # TODO: Sprawdz czy edycja czy nowy oraz czy juz nie istnieje
             
-            self._add_server(dialog._ui.leName.text(), dialog._ui.leDesc.text(), dialog._ui.leAddr.text(), dialog._ui.sbPort.value(), str(dialog._ui.leUser.text()), (os.path.expanduser(str(dialog._ui.leKey1.text())), os.path.expanduser(str(dialog._ui.leKey2.text()))))
+            self._add_server(dialog._ui.leName.text(), dialog._ui.leDesc.text(), dialog._ui.leAddr.text(), dialog._ui.sbPort.value(), str(dialog._ui.leUser.text()), (os.path.expanduser(str(dialog._ui.leKey1.text())), os.path.expanduser(str(dialog._ui.leKey2.text()))), str(dialog._ui.leLSTDir.text()))
         
     def _action_add_server(self):
         dialog = DialogAddServer(self)
