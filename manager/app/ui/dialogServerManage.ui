@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>678</width>
-    <height>593</height>
+    <height>637</height>
    </rect>
   </property>
   <property name="font">
@@ -332,6 +332,37 @@
          </column>
         </widget>
        </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_8">
+         <item>
+          <widget class="QPushButton" name="bntTerminalOpen">
+           <property name="text">
+            <string>Otwórz terminal</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="bntBrowserOpen">
+           <property name="text">
+            <string>Przegladaj pliki</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
       </layout>
      </widget>
      <widget class="QWidget" name="tab">
@@ -426,47 +457,11 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tabCommands">
-      <attribute name="title">
-       <string>Polecenia</string>
-      </attribute>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QPlainTextEdit" name="pteCommandResult">
-         <property name="readOnly">
-          <bool>true</bool>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_8">
-         <item>
-          <widget class="QLabel" name="label_9">
-           <property name="text">
-            <string>Polecenie:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLineEdit" name="leCommand"/>
-         </item>
-         <item>
-          <widget class="QPushButton" name="bntExec">
-           <property name="text">
-            <string>Wykonaj</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>leCommand</tabstop>
   <tabstop>twFs</tabstop>
   <tabstop>twRaid</tabstop>
   <tabstop>twIfaces</tabstop>
@@ -474,9 +469,7 @@
   <tabstop>sbLogLines</tabstop>
   <tabstop>cbLogRefresh</tabstop>
   <tabstop>pteLogContent</tabstop>
-  <tabstop>pteCommandResult</tabstop>
   <tabstop>tabWidget</tabstop>
-  <tabstop>bntExec</tabstop>
  </tabstops>
  <resources/>
  <connections/>

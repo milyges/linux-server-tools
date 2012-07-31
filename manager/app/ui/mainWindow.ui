@@ -83,7 +83,14 @@
     </property>
     <addaction name="aHelpAbout"/>
    </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>Narzędzia</string>
+    </property>
+    <addaction name="aToolsSettings"/>
+   </widget>
    <addaction name="menu_Serwer"/>
+   <addaction name="menuTools"/>
    <addaction name="menuHelp"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
@@ -127,6 +134,11 @@
   <action name="aHelpAbout">
    <property name="text">
     <string>O programie...</string>
+   </property>
+  </action>
+  <action name="aToolsSettings">
+   <property name="text">
+    <string>Ustawienia</string>
    </property>
   </action>
  </widget>

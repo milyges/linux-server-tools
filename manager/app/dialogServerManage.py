@@ -3,6 +3,7 @@
 from PyQt4 import QtCore,QtGui
 from app.ui.dialogServerManage import Ui_DialogServerManage
 import re
+import subprocess
 
 class DialogServerManage(QtGui.QDialog):
     def _update_uname(self, code, stdout, stderr):
@@ -158,17 +159,6 @@ class DialogServerManage(QtGui.QDialog):
         self._server.execute("cat /proc/mdstat", self._update_raid)
         self._server.execute("/sbin/ifconfig -a", self._update_ifaces)
         self._server.execute("cat /proc/meminfo", self._update_mem_info)
-    
-    def _exec_command_callback(self, code, stdout, stderr):
-        
-        self._ui.pteCommandResult.setPlainText(self._ui.pteCommandResult.toPlainText() + stderr + stdout)
-        
-    def _exec_command(self):
-        if self._ui.leCommand.text():
-            self._ui.pteCommandResult.clear()
-            self._ui.pteCommandResult.setPlainText("$ %s\n" % (self._ui.leCommand.text()))
-            self._server.execute(str(self._ui.leCommand.text()), self._exec_command_callback)
-            self._ui.leCommand.clear()
             
     def _log_show(self, code, stdout, stderr):
         self._ui.pteLogContent.clear()
@@ -186,21 +176,53 @@ class DialogServerManage(QtGui.QDialog):
         
     def _log_load(self):        
         self._server.execute("tail -n %d %s" % (self._ui.sbLogLines.value(), self._ui.cbLogFile.currentText()), self._log_show)
-                
+         
+    def _open_terminal(self):
+        cmd = str(self._settings.value("settings/sshcmd", "").toString())
+        
+        if not cmd:
+            return
+        
+        cmd = cmd.replace("%p", self._server._thread._keys[1])
+        cmd = cmd.replace("%u", self._server._thread._user)
+        cmd = cmd.replace("%h", self._server._thread._addr)
+           
+        try:
+            subprocess.Popen(cmd.split())
+        except:
+            QtGui.QMessageBox().critical(self, "Błąd", "Nie można uruchomić polecenia %s" % (cmd))
+        
+    def _open_browser(self):
+        cmd = str(self._settings.value("settings/sftpcmd", "").toString())
+        
+        if not cmd:
+            return
+        
+        cmd = cmd.replace("%p", self._server._thread._keys[1])
+        cmd = cmd.replace("%u", self._server._thread._user)
+        cmd = cmd.replace("%h", self._server._thread._addr)
+           
+        try:
+            subprocess.Popen(cmd.split())
+        except:
+            QtGui.QMessageBox().critical(self, "Błąd", "Nie można uruchomić polecenia %s" % (cmd))
+            
     def __init__(self, server, parent = None):
         super(DialogServerManage, self).__init__(parent)
 
         self._ui = Ui_DialogServerManage()
         self._ui.setupUi(self)
-
+        self._settings = QtCore.QSettings("linux-server-tools", "manager")
+        
         self._server = server
         self._ui.lTitle.setText("Zarządzanie serwerem %s" % (server._item.text(1)))
         self.setWindowTitle("Zarządzanie serwerem %s" % (server._item.text(1)))
         
         self._ui.pteLogContent.setVerticalScrollBarPolicy( QtCore.Qt.ScrollBarAlwaysOn );
         
-        self.connect(self._ui.bntExec, QtCore.SIGNAL("clicked()"), self._exec_command)
         self.connect(self._ui.bntLoadLog, QtCore.SIGNAL('clicked()'), self._log_load)
+        self.connect(self._ui.bntTerminalOpen, QtCore.SIGNAL('clicked()'), self._open_terminal)
+        self.connect(self._ui.bntBrowserOpen, QtCore.SIGNAL('clicked()'), self._open_browser)
         
         self._ui.lUname.setText("Loading...")
         server.execute("uname -a", self._update_uname)

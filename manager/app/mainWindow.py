@@ -7,6 +7,7 @@ from app.ui.mainWindow import Ui_MainWindow
 from app.dialogAddServer import DialogAddServer
 from app.dialogServerManage import DialogServerManage
 from app.dialogAbout import DialogAbout
+from app.dialogSettings import DialogSettings
 
 from app.server import Server
 
@@ -27,9 +28,10 @@ class MainWindow(QtGui.QMainWindow):
         
         self.connect(self._ui.aServerAdd, QtCore.SIGNAL("triggered()"), self._action_add_server)
         self.connect(self._ui.aServerRemove, QtCore.SIGNAL("triggered()"), self._action_remove_server)
+        self.connect(self._ui.aToolsSettings, QtCore.SIGNAL("triggered()"), self._action_open_settings)
         self.connect(self._ui.aHelpAbout, QtCore.SIGNAL("triggered()"), self._show_about)
         self.connect(self._ui.twServers, QtCore.SIGNAL("itemDoubleClicked(QTreeWidgetItem *,int)"), self._action_manage_server)
-                     
+           
         self._updateTimer = QtCore.QTimer(self)
         self._updateTimer.setInterval(2000)
         self._updateTimer.setSingleShot(False)
@@ -63,6 +65,19 @@ class MainWindow(QtGui.QMainWindow):
         for s in self._servers:
             s.start()
        
+    def _save_settings(self):
+        dialog = self.sender()
+        self._settings.setValue("settings/sshcmd", dialog._ui.leSSHCmd.text())
+        self._settings.setValue("settings/sftpcmd", dialog._ui.leSFTPCmd.text())
+    
+    def _action_open_settings(self):
+        dialog = DialogSettings(self)
+        dialog._ui.leSSHCmd.setText(self._settings.value("settings/sshcmd", "").toString())
+        dialog._ui.leSFTPCmd.setText(self._settings.value("settings/sftpcmd", "").toString())
+        self.connect(dialog, QtCore.SIGNAL("accepted()"), self._save_settings)
+        
+        dialog.exec_()
+        
     def _show_about(self):
         dialog = DialogAbout()
         dialog.exec_()
