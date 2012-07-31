@@ -284,7 +284,17 @@ class DialogServerManage(QtGui.QDialog):
         
             self._lstWidgets.append(WidgetLSTHosts(self._server))
             self._ui.cbModules.addItem("Hosty")
-        
-        
-        
+        else:
+            label = QtGui.QLabel()
+            f = QtGui.QFont()
+            f.setPointSize(9)
+            f.setBold(True)
+            label.setFont(f)
+            label.setText("Linux Server Tools nie jest zainstalowany tym na serwerze")
+                        
+            self._ui.vlLST.addWidget(label)
+            self._ui.bntApply.setEnabled(False)
+            self._ui.bntCancel.setEnabled(False)
+            self._ui.bntSave.setEnabled(False)
+            self._ui.cbModules.setEnabled(False)
         
