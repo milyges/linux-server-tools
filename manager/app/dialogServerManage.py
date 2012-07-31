@@ -207,6 +207,14 @@ class DialogServerManage(QtGui.QDialog):
         except:
             QtGui.QMessageBox().critical(self, "Błąd", "Nie można uruchomić polecenia %s" % (cmd))
             
+    
+    def _load_modules_finished(self, code, stdout, stderr):
+        pass
+            
+    def _load_modules(self):
+        pass
+    
+    
     def __init__(self, server, parent = None):
         super(DialogServerManage, self).__init__(parent)
 
@@ -215,8 +223,9 @@ class DialogServerManage(QtGui.QDialog):
         self._settings = QtCore.QSettings("linux-server-tools", "manager")
         
         self._server = server
-        self._ui.lTitle.setText("Zarządzanie serwerem %s" % (server._item.text(1)))
-        self.setWindowTitle("Zarządzanie serwerem %s" % (server._item.text(1)))
+        self._ui.lTitle.setText(u"Zarządzanie serwerem %s" % (server._item.text(1)))
+        
+        self.setWindowTitle(u"Zarządzanie serwerem %s" % (server._item.text(1)))
         
         self._ui.pteLogContent.setVerticalScrollBarPolicy( QtCore.Qt.ScrollBarAlwaysOn );
         
@@ -240,4 +249,5 @@ class DialogServerManage(QtGui.QDialog):
         self._ui.cbLogFile.addItem("/var/log/dmesg")
         self._ui.cbLogFile.addItem("/var/log/messages")
         self._ui.cbLogFile.addItem("/var/log/syslog")
+        
         

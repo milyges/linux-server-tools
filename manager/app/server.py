@@ -113,7 +113,7 @@ class ServerThread(QtCore.QThread):
         self._command_queue_mutex.unlock()
     
 class Server(QtCore.QObject):
-     
+    
     def _update_status_slot(self, status):
         QtCore.qDebug("%s: update status to %d" % (self._addr, status))
         self._status = status

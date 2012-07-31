@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import sys
 from PyQt4 import QtCore,QtGui
 from app.mainWindow import MainWindow
