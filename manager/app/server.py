@@ -86,11 +86,11 @@ class ServerThread(QtCore.QThread):
             while not chan.eof:
                 data = chan.read(1024)
                 if data:
-                    stdout.append(data)
+                    stdout.append(data.decode('UTF-8'))
  
                 data = chan.read(1024, libssh2.STDERR)
                 if data:
-                    stderr.append(data)
+                    stderr.append(data.decode('UTF-8'))
             
             cmd.stdout = ''.join(stdout)
             cmd.stderr = ''.join(stderr)

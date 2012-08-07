@@ -42,10 +42,10 @@ class MainWindow(QtGui.QMainWindow):
         
         self._settings = QtCore.QSettings("linux-server-tools", "manager")
         self._settings.beginGroup("ui")
-        self.setGeometry(self._settings.value("geometry", self.geometry()).toRect())
+        self.setGeometry(self._settings.value("geometry", self.geometry()))
         
         for i in range(6):
-            self._ui.twServers.header().resizeSection(i, self._settings.value("col%d" % (i), self._ui.twServers.header().sectionSize(i)).toInt()[0])
+            self._ui.twServers.header().resizeSection(i, int(self._settings.value("col%d" % (i), self._ui.twServers.header().sectionSize(i))))
             
         self._settings.endGroup()
         
@@ -54,8 +54,8 @@ class MainWindow(QtGui.QMainWindow):
         for server in self._settings.childGroups():
             self._settings.beginGroup(server)
             
-            s = Server(self._settings.value("addr").toString(), self._settings.value("port").toInt()[0], str(self._settings.value("user").toString()), (str(self._settings.value("key1").toString()), str(self._settings.value("key2").toString())), str(self._settings.value("lstdir").toString()), QtGui.QTreeWidgetItem(self._ui.twServers))
-            s.set_info(server, self._settings.value("desc").toString())
+            s = Server(self._settings.value("addr"), int(self._settings.value("port")), str(self._settings.value("user")), (str(self._settings.value("key1")), str(self._settings.value("key2"))), str(self._settings.value("lstdir")), QtGui.QTreeWidgetItem(self._ui.twServers))
+            s.set_info(server, self._settings.value("desc"))
             self._servers.append(s)
             
             self._settings.endGroup()            
@@ -72,8 +72,8 @@ class MainWindow(QtGui.QMainWindow):
     
     def _action_open_settings(self):
         dialog = DialogSettings(self)
-        dialog._ui.leSSHCmd.setText(self._settings.value("settings/sshcmd", "").toString())
-        dialog._ui.leSFTPCmd.setText(self._settings.value("settings/sftpcmd", "").toString())
+        dialog._ui.leSSHCmd.setText(self._settings.value("settings/sshcmd", ""))
+        dialog._ui.leSFTPCmd.setText(self._settings.value("settings/sftpcmd", ""))
         self.connect(dialog, QtCore.SIGNAL("accepted()"), self._save_settings)
         
         dialog.exec_()

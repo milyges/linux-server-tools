@@ -184,7 +184,7 @@ class DialogServerManage(QtGui.QDialog):
         self._server.execute("tail -n %d %s" % (self._ui.sbLogLines.value(), self._ui.cbLogFile.currentText()), self._log_show)
          
     def _open_terminal(self):
-        cmd = str(self._settings.value("settings/sshcmd", "").toString())
+        cmd = str(self._settings.value("settings/sshcmd", ""))
         
         if not cmd:
             return
@@ -199,7 +199,7 @@ class DialogServerManage(QtGui.QDialog):
             QtGui.QMessageBox().critical(self, "Błąd", "Nie można uruchomić polecenia %s" % (cmd))
         
     def _open_browser(self):
-        cmd = str(self._settings.value("settings/sftpcmd", "").toString())
+        cmd = str(self._settings.value("settings/sftpcmd", ""))
         
         if not cmd:
             return
@@ -242,9 +242,9 @@ class DialogServerManage(QtGui.QDialog):
         self._settings = QtCore.QSettings("linux-server-tools", "manager")
         
         self._server = server
-        self._ui.lTitle.setText(u"Zarządzanie serwerem %s" % (server._item.text(1)))
+        self._ui.lTitle.setText("Zarządzanie serwerem %s" % (server._item.text(1)))
         
-        self.setWindowTitle(u"Zarządzanie serwerem %s" % (server._item.text(1)))
+        self.setWindowTitle("Zarządzanie serwerem %s" % (server._item.text(1)))
         
         self._ui.pteLogContent.setVerticalScrollBarPolicy( QtCore.Qt.ScrollBarAlwaysOn );
         
