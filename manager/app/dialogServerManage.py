@@ -102,7 +102,7 @@ class DialogServerManage(QtGui.QDialog):
         item = None
         
         while i < len(data):
-            m = re.match("^([a-zA-Z0-9]+)[ ]+Link encap(.*)", data[i])            
+            m = re.match("^([a-zA-Z0-9\.]+)[ ]+Link encap(.*)", data[i])            
             if m:
                 item = QtGui.QTreeWidgetItem(self._ui.twIfaces)             
                 item.setText(0, m.group(1))
