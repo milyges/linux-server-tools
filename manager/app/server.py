@@ -183,11 +183,11 @@ class Server(QtCore.QObject):
             self._item.setText(4, "N/A")
         else:
             tmp = int(round(float(stdout.split(" ")[0])))
-            uptime = "%ds" % (tmp % 60)
+            uptime = "%02ds" % (tmp % 60)
             
             tmp = tmp / 60
             if tmp > 0:
-                uptime = "%dm " % (tmp % 60) + uptime
+                uptime = "%02dm " % (tmp % 60) + uptime
                 tmp = tmp / 60
                 
             if tmp > 0:
